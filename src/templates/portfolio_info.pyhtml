@@ -1,0 +1,8 @@
+<b>Portfolio Information</b>
+<?py if not positions: ?>
+<i> You do not hold any positions as of now. Make some trades and check back.</i>
+<?py #endif ?>
+<?py for position in positions: ?>
+<?py include('_position_info.pyhtml', position = position) ?>
+<?py #endfor ?>
+<b> Your wallet balance is : ₹${wallet_value}</b>

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: chandan
 # @Date:   2016-12-10 19:19:12
-# @Last Modified by:   chandan
-# @Last Modified time: 2016-12-10 20:30:17
+# @Last Modified by:   karthik
+# @Last Modified time: 2016-12-10 22:51:26
 
 import logging
 
@@ -12,6 +12,14 @@ from telegram.ext import Updater
 from telegram.ext import InlineQueryHandler
 
 from telegram import InlineQueryResultArticle, InputTextMessageContent
+
+from info.fetch_info import *
+
+def initialize_bot():
+	new_port = Portfolio([], 100000)
+	return
+
+initialize_bot()
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',level=logging.INFO)
 
@@ -28,6 +36,7 @@ def echo(bot, update):
 	bot.sendMessage(chat_id=update.message.chat_id, text=update.message.text)
 
 def caps(bot, update, args):
+	print args
 	text_caps = ' '.join(args).upper()
 	bot.sendMessage(chat_id=update.message.chat_id, text=text_caps)
 
@@ -49,6 +58,7 @@ def inline_caps(bot, update):
 # command handlers
 start_handler = CommandHandler('start', start)
 caps_handler = CommandHandler('caps', caps, pass_args=True)
+info_handler = CommandHandler('info', fetch_info_handler, pass_args=True)
 # inline handlers
 inline_caps_handler = InlineQueryHandler(inline_caps)
 
@@ -60,8 +70,10 @@ dispatcher.add_handler(start_handler)
 dispatcher.add_handler(echo_handler)
 dispatcher.add_handler(caps_handler)
 dispatcher.add_handler(inline_caps_handler)
+dispatcher.add_handler(info_handler)
 
 print "Starting bot"
+updater.start_polling()
 updater.idle()
 
 

@@ -1,0 +1,10 @@
+timestamp: 1481390028.43
+
+_extend=_buf.extend;_to_str=to_str;_escape=escape; _extend(('''<b>Portfolio Information</b>\n''', ));
+if not positions:
+    _extend(('''<i> You do not hold any positions as of now. Make some trades and check back.</i>\n''', ));
+#endif
+for position in positions:
+    include('_position_info.pyhtml', position = position)
+#endfor
+_extend(('''<b> Your wallet balance is : ₹''', _escape(_to_str(wallet_value)), '''</b>\n''', ));
