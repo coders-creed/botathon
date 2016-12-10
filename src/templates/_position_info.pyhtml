@@ -1,0 +1,4 @@
+<i> ${position.company.name} </i> (${position.company.symbol})
+• Own: ${position.num_shares} shares
+• Bought at: ₹${position.buying_price}/share
+• Total investment: ₹${position.get_value()}

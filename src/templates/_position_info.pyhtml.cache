@@ -1,0 +1,6 @@
+timestamp: 1481395434.87
+
+_extend=_buf.extend;_to_str=to_str;_escape=escape; _extend(('''<i> ''', _escape(_to_str(position.company.name)), ''' </i> (''', _escape(_to_str(position.company.symbol)), ''')
+• Own: ''', _escape(_to_str(position.num_shares)), ''' shares
+• Bought at: ₹''', _escape(_to_str(position.buying_price)), '''/share
+• Total investment: ₹''', _escape(_to_str(position.get_value())), '''\n''', ));
