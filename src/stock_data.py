@@ -2,13 +2,13 @@
 # @Author: karthik
 # @Date:   2016-12-10
 # @Last Modified by:   karthik
-# @Last Modified time: 2016-12-10 23:18:30
+# @Last Modified time: 2016-12-11 07:47:36
 
 
 import pandas as pd
 import numpy as np
 from pandas_datareader.data import DataReader
-from datetime import datetime
+from datetime import datetime, date, timedelta
 from models.company import Company
 
 # get price history for list of companies
@@ -52,7 +52,7 @@ def get_history(symbols,  start_date, end_date):
 # get price for single symbol
 def get_history_yahoo(stock_symbol, start_date, end_date):
 
-	print "Searching for: ", stock_symbol, " ... ", 
+	# print "Searching for: ", stock_symbol, " ... ", 
 	history = []
 	# try NSE symbol
 	try:
@@ -69,6 +69,29 @@ def get_history_yahoo(stock_symbol, start_date, end_date):
 				except IOError:
 					history = []
 
-	print len(history), "days"
+	# print len(history), "days"
 
 	return history
+
+# get current price
+def get_current_price(company):
+	today = date.today()
+	if today.weekday() in [5,6]:
+		diff = today.weekday()-4
+	else:
+		diff = 1
+	current_price_frame = get_history_yahoo(company.symbol, today-timedelta(days=diff), today-timedelta(days=diff))
+	return current_price_frame["Close"].values[0]
+		
+	
+
+# get lookback prices
+def get_lookback_prices(company, timedel):
+	today = date.today()
+	if today.weekday() in [5,6]:
+		diff = today.weekday()-4
+	else:
+		diff = 1
+	price_frame = get_history_yahoo(company.symbol, today-timedelta(days=diff+timedel), today-timedelta(days=diff))
+	dates = map(lambda x: x.date(), price_frame.index.to_pydatetime())
+	return dates, price_frame["Close"].values

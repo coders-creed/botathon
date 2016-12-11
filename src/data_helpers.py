@@ -2,7 +2,7 @@
 # @Author: karthik
 # @Date:   2016-12-10 23:04:24
 # @Last Modified by:   karthik
-# @Last Modified time: 2016-12-11 00:04:31
+# @Last Modified time: 2016-12-11 07:11:13
 
 from models.company import Company
 import pandas as pd
@@ -27,7 +27,7 @@ def get_companies(args):
 	companies = []
 	for arg in args:
 		for comp in Company.companies:
-			if arg in comp.name+" "+comp.symbol:
+			if arg in comp.name.lower()+" "+comp.symbol.lower():
 				companies.append(comp)
 	return companies
 
