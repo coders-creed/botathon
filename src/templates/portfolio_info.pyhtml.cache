@@ -1,4 +1,4 @@
-timestamp: 1481395411.77
+timestamp: 1481392299.65
 
 _extend=_buf.extend;_to_str=to_str;_escape=escape; _extend(('''<b>Portfolio Information</b>\n''', ));
 if not positions:

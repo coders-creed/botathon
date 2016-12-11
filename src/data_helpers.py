@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: karthik
 # @Date:   2016-12-10 23:04:24
-# @Last Modified by:   karthik
-# @Last Modified time: 2016-12-11 07:11:13
+# @Last Modified by:   chandan
+# @Last Modified time: 2016-12-11 08:45:48
 
 from models.company import Company
 import pandas as pd
@@ -22,13 +22,19 @@ def get_cnx_symbols(filename):
 
 	return cnx
 
+def get_company(arg):
+	for comp in Company.companies:
+			if arg in comp.name.lower() + ' ' + comp.symbol.lower():
+				return comp
+	return None
 
 def get_companies(args):
 	companies = []
+	
 	for arg in args:
-		for comp in Company.companies:
-			if arg in comp.name.lower()+" "+comp.symbol.lower():
-				companies.append(comp)
+		c = get_company(arg)
+		if c: companies.append(c)
+
 	return companies
 
 def create_companies():
