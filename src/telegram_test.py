@@ -2,7 +2,7 @@
 # @Author: chandan
 # @Date:   2016-12-10 19:19:12
 # @Last Modified by:   chandan
-# @Last Modified time: 2016-12-11 11:29:46
+# @Last Modified time: 2016-12-11 13:45:56
 
 import logging
 
@@ -17,8 +17,10 @@ from info.fetch_info import *
 from actions.trade import *
 from data_helpers import *
 
+from info import sector
+
 def initialize_bot():
-	new_port = Portfolio([], 100000)
+	new_port = Portfolio([], 108761231899)
 	create_companies()
 	new_port.add_position(Position(Company.companies[0], 1000, 200))
 	new_port.add_position(Position(Company.companies[1], 2000, 100))
@@ -50,7 +52,7 @@ start_handler = CommandHandler('start', start)
 caps_handler = CommandHandler('caps', caps, pass_args=True)
 info_handler = CommandHandler('info', send_info_handler, pass_args=True)
 buy_handler = CommandHandler('buy', buy_shares, pass_args=True)
-# inline handlers
+sector_handler = CommandHandler('sector', sector.sector_main, pass_args=True)
 
 def button(bot, update):
     query = update.callback_query
@@ -76,6 +78,7 @@ dispatcher.add_handler(echo_handler)
 dispatcher.add_handler(caps_handler)
 dispatcher.add_handler(info_handler)
 dispatcher.add_handler(buy_handler)
+dispatcher.add_handler(sector_handler)
 dispatcher.add_handler(CallbackQueryHandler(button))
 
 print "Starting bot"

@@ -2,15 +2,19 @@
 # @Author: chandan
 # @Date:   2016-12-11 08:41:51
 # @Last Modified by:   chandan
-# @Last Modified time: 2016-12-11 10:13:48
+# @Last Modified time: 2016-12-11 12:59:47
 
 from data_helpers import get_company
 from stock_data import get_current_price
+
 from models.portfolio import Portfolio
 from models.position import Position
+from models.transaction import Transaction
 
 from telegram.inlinekeyboardbutton import InlineKeyboardButton
 from telegram.inlinekeyboardmarkup import InlineKeyboardMarkup
+
+TRANSACTIONS = []
 
 buy_context = {
 	'company': None,
@@ -43,6 +47,7 @@ def buy_shares(bot, update, args):
 	# check if wallet balace sufficient
 	if buy_value >= portfolio.wallet_value:
 		bot.sendMessage(chat_id=update.message.chat_id, text='Your wallet balance is insufficient to make this trade. Please add more money to it')
+		return
 
 	confirm_text = "Are you sure you want to buy {} shares of {} at {} per share, for a total value of {}?".format(n_shares_to_buy, company.symbol, current_price, buy_value)
 	# send yes/no confirmation button
@@ -86,3 +91,7 @@ def complete_buy():
 	portfolio.wallet_value -= buy_value
 	wallet_text = 'Your updated wallet balance is {}'.format(portfolio.wallet_value)
 	bot.sendMessage(chat_id=update.message.chat_id, text=wallet_text)
+
+	TRANSACTIONS.append(
+		Transaction(company, n_shares_to_buy, current_price)
+		)
