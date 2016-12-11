@@ -1,5 +1,6 @@
-timestamp: 1481425641.47
+timestamp: 1481437506.54
 
 _extend=_buf.extend;_to_str=to_str;_escape=escape; _extend(('''<i> ''', _escape(_to_str(company.name)), ''' </i> (''', _escape(_to_str(company.symbol)), ''')
-• Sector: ''', _escape(_to_str(company.industry)), '''
-• Current price: ''', _escape(_to_str(current_price)), ));
+A ''', _escape(_to_str(company.industry.lower())), ''' company, current price is ''', _escape(_to_str(current_price)), '''.
+
+''', _escape(_to_str(description)), ));

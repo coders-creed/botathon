@@ -2,7 +2,7 @@
 # @Author: karthik
 # @Date:   2016-12-10 23:04:24
 # @Last Modified by:   chandan
-# @Last Modified time: 2016-12-11 08:45:48
+# @Last Modified time: 2016-12-11 12:19:29
 
 from models.company import Company
 import pandas as pd

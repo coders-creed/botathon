@@ -1,3 +1,4 @@
 <i> ${company.name} </i> (${company.symbol})
-• Sector: ${company.industry}
-• Current price: ${current_price}
+A ${company.industry.lower()} company, current price is ${current_price}.
+
+${description}

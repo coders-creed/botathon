@@ -2,7 +2,7 @@
 # @Author: chandan
 # @Date:   2016-12-10 19:19:12
 # @Last Modified by:   chandan
-# @Last Modified time: 2016-12-11 10:08:09
+# @Last Modified time: 2016-12-11 11:29:46
 
 import logging
 
@@ -56,10 +56,16 @@ def button(bot, update):
     query = update.callback_query
     action, arg = query.data.split('-')
 
+
     print action, arg
 
     if action == 'BUY':
+	    # bot.editMessageText(text="Selected option: %s" % query.data,
+	    #                     chat_id=query.message.chat_id,
+	    #                     message_id=query.message.message_id)
 	    if arg == 'Y': complete_buy()
+	# elif action == 'SELL':
+	#     if arg == 'Y': complete_sell()
 
 # message handlers
 echo_handler = MessageHandler(Filters.text, echo)
